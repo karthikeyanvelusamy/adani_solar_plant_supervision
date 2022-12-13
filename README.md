@@ -1,0 +1,1 @@
+# adani_solar_plant_supervision
