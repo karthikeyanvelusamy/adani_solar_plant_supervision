@@ -6,6 +6,7 @@ import com.kovaitech.adani.solar.supervision.service.CheckupTicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +25,7 @@ public class CheckupTicketController {
     private CheckupTicketService service;
 
 
-    @RequestMapping(value = "/upsert", method = RequestMethod.POST)
+    @RequestMapping(value = "/upsert", method = RequestMethod.POST,produces =  MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<String> upsert(@RequestBody CheckupTicket checkupTicket) {
         try{
@@ -38,7 +39,7 @@ public class CheckupTicketController {
     }
 
 
-    @RequestMapping(value = "/delete/{checkupTicketId}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete/{checkupTicketId}", method = RequestMethod.DELETE,produces =  MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<String> delete(@PathParam("checkTicketId") String checkupTicketId) {
         try{
@@ -53,7 +54,7 @@ public class CheckupTicketController {
 
     }
 
-    @RequestMapping(value = "/get/{checkupTicketId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/get/{checkupTicketId}", method = RequestMethod.GET,produces =  MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<String> get(@PathVariable("checkupTicketId") String checkupTicketId) {
         try{
@@ -68,7 +69,7 @@ public class CheckupTicketController {
         }
     }
 
-    @RequestMapping(value = "/get", method = RequestMethod.GET)
+    @RequestMapping(value = "/get", method = RequestMethod.GET,produces =  MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<String> getAll() {
         try{
