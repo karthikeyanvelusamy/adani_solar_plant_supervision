@@ -10,6 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin
@@ -69,8 +72,12 @@ public class CheckupTicketController {
     @ResponseBody
     public ResponseEntity<String> getAll() {
         try{
+
+            List<CheckupTicket> tickets = service.getAll();
+            Map<String, List<CheckupTicket>> res = new HashMap<>();
+            res.put("data",tickets);
             return new ResponseEntity<String>(new ObjectMapper()
-                    .writeValueAsString(service.getAll()),
+                    .writeValueAsString(res),
                     HttpStatus.OK);
 
         }catch (Exception e) {
