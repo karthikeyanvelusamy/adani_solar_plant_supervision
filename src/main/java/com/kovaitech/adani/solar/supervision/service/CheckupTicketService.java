@@ -25,6 +25,9 @@ public class CheckupTicketService {
         return checkupTicket.get();
     }
 
+    public List<CheckupTicket> getAll() {
+        return checkupTicketRepo.findAll();
+    }
 
     public String createOrUpdateTicket(CheckupTicket ticket) {
        return checkupTicketRepo.save(ticket).getId();

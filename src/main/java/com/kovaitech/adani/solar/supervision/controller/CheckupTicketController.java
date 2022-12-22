@@ -52,7 +52,7 @@ public class CheckupTicketController {
 
     @RequestMapping(value = "/get/{checkupTicketId}", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<String> get(@PathParam("checkTicketId") String checkupTicketId) {
+    public ResponseEntity<String> get(@PathVariable("checkupTicketId") String checkupTicketId) {
         try{
 
             return new ResponseEntity<String>(new ObjectMapper()
@@ -62,6 +62,20 @@ public class CheckupTicketController {
         }catch (Exception e) {
             return new ResponseEntity<String>( "Error : "+ e.getLocalizedMessage(),
                    HttpStatus.INTERNAL_SERVER_ERROR) ;
+        }
+    }
+
+    @RequestMapping(value = "/get", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<String> getAll() {
+        try{
+            return new ResponseEntity<String>(new ObjectMapper()
+                    .writeValueAsString(service.getAll()),
+                    HttpStatus.OK);
+
+        }catch (Exception e) {
+            return new ResponseEntity<String>( "Error : "+ e.getLocalizedMessage(),
+                    HttpStatus.INTERNAL_SERVER_ERROR) ;
         }
     }
 
