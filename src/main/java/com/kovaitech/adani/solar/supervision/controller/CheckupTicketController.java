@@ -57,7 +57,7 @@ public class CheckupTicketController {
 
     @RequestMapping(value = "/delete/{checkupTicketId}", method = RequestMethod.DELETE,produces =  MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<String> delete(@PathParam("checkTicketId") String checkupTicketId) {
+    public ResponseEntity<String> delete(@PathVariable("checkTicketId") String checkupTicketId) {
         try{
             service.deleteTicket(checkupTicketId);
             return new ResponseEntity<String>("Successfully Deleted",
