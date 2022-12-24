@@ -9,6 +9,4 @@ import java.util.Optional;
 
 public interface CheckupTicketRepo extends MongoRepository<CheckupTicket, String> {
 
-    List<CheckupTicket> findAllByInitiatedBy(String initiatedBy);
-    List<CheckupTicket> findAllByFinishedBy(String finishedBy);
 }

@@ -1,5 +1,12 @@
 package com.kovaitech.adani.solar.supervision.bean;
 
+import lombok.*;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Getter
+@Setter
 public class CheckListItem {
 
 

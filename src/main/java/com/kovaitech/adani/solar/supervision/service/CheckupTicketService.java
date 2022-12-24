@@ -37,14 +37,6 @@ public class CheckupTicketService {
     public void deleteTicket(String id) {
         checkupTicketRepo.deleteById(id);
     }
-
-    public List<CheckupTicket> getTicketsForUser(String userId) {
-        List<CheckupTicket> res = new ArrayList<>();
-
-        res.addAll(checkupTicketRepo.findAllByInitiatedBy(userId));
-        res.addAll(checkupTicketRepo.findAllByFinishedBy(userId));
-
-        return res;
-    }
+ 
 
 }
