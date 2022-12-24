@@ -14,6 +14,10 @@ public class UserService {
     private UserRepo userRepo;
 
     public void upsert(User user) {
+
+        if( userRepo.findByUsername(user.getUsername()).isPresent()) {
+            throw new RuntimeException("User Can not created! Username already exists!");
+        }
         userRepo.save(user);
     }
 
