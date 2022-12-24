@@ -1,5 +1,6 @@
 package com.kovaitech.adani.solar.supervision.service;
 
+import com.kovaitech.adani.solar.supervision.bean.CheckListItem;
 import com.kovaitech.adani.solar.supervision.bean.CheckupTicket;
 import com.kovaitech.adani.solar.supervision.repository.CheckupTicketRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -25,6 +27,18 @@ public class CheckupTicketService {
         return checkupTicket.get();
     }
 
+    public void addCheckListItem(Map<String, CheckListItem> checkListItemMap,
+                                 String checkupTicketId) {
+
+        Optional<CheckupTicket> checkupTicket = checkupTicketRepo.findById(checkupTicketId);
+        if(checkupTicket.isPresent()) {
+            checkupTicket.get().setCheckListData(checkListItemMap);
+        }
+
+        checkupTicketRepo.save(checkupTicket.get());
+
+    }
+
     public List<CheckupTicket> getAll() {
         return checkupTicketRepo.findAll();
     }
@@ -37,6 +51,6 @@ public class CheckupTicketService {
     public void deleteTicket(String id) {
         checkupTicketRepo.deleteById(id);
     }
- 
+
 
 }

@@ -1,6 +1,7 @@
 package com.kovaitech.adani.solar.supervision.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kovaitech.adani.solar.supervision.bean.CheckListItem;
 import com.kovaitech.adani.solar.supervision.bean.CheckupTicket;
 import com.kovaitech.adani.solar.supervision.service.CheckupTicketService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +30,27 @@ public class CheckupTicketController {
     @ResponseBody
     public ResponseEntity<String> upsert(@RequestBody CheckupTicket checkupTicket) {
         try{
+            checkupTicket.setStatus("Pending");
             return new ResponseEntity<String>(service.createOrUpdateTicket(checkupTicket),
         HttpStatus.OK);
 
         }catch (Exception e) {
             return new ResponseEntity<String>( "Error : "+ e.getLocalizedMessage(),
                      HttpStatus.INTERNAL_SERVER_ERROR) ;
+        }
+    }
+
+    @RequestMapping(value = "/checklist-add/{id}", method = RequestMethod.POST,produces =  MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<String> checklistAdd(@PathVariable("id") String id, @RequestBody Map<String, CheckListItem> checkListItemMap) {
+        try{
+            service.addCheckListItem(checkListItemMap, id);
+            return new ResponseEntity<String>("Success: Updated Successfully",
+                    HttpStatus.OK);
+
+        }catch (Exception e) {
+            return new ResponseEntity<String>( "Error : "+ e.getLocalizedMessage(),
+                    HttpStatus.INTERNAL_SERVER_ERROR) ;
         }
     }
 
@@ -86,6 +102,8 @@ public class CheckupTicketController {
                     HttpStatus.INTERNAL_SERVER_ERROR) ;
         }
     }
+
+
 
 
 }
