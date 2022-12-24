@@ -70,6 +70,17 @@ public class LoginController {
         }
     }
 
+    @RequestMapping(value = "/get", method = RequestMethod.GET, produces =  MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<String> getUser() {
+        try {
+            return  new ResponseEntity<>(new ObjectMapper().writeValueAsString(userService.getUsers()), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.ok(e.getLocalizedMessage()).status(500).build();
+        }
+    }
+
 
 
 
