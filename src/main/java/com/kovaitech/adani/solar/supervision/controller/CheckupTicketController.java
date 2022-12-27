@@ -3,6 +3,7 @@ package com.kovaitech.adani.solar.supervision.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kovaitech.adani.solar.supervision.bean.CheckListItem;
 import com.kovaitech.adani.solar.supervision.bean.CheckupTicket;
+import com.kovaitech.adani.solar.supervision.bean.DeleteRequest;
 import com.kovaitech.adani.solar.supervision.service.CheckupTicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -77,6 +78,22 @@ public class CheckupTicketController {
 
     }
 
+    @RequestMapping(value = "/delete", method = RequestMethod.POST,produces =  MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<String> delete(@RequestBody DeleteRequest deleteRequest) {
+        try{
+            service.deleteTickets(deleteRequest.getIds());
+            Map<String, Object> response = new HashMap<>();
+            response.put("status", "Successfully Deleted");
+            return new ResponseEntity<String>(mapper.writeValueAsString(response),
+                    HttpStatus.OK);
+
+        }catch (Exception e) {
+            return new ResponseEntity<String>( "Error : "+ e.getLocalizedMessage(),
+                    HttpStatus.INTERNAL_SERVER_ERROR) ;
+        }
+
+    }
     @RequestMapping(value = "/get/{checkupTicketId}", method = RequestMethod.GET,produces =  MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<String> get(@PathVariable("checkupTicketId") String checkupTicketId) {

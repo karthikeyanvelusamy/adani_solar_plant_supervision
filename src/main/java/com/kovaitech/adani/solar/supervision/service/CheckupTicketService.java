@@ -52,5 +52,9 @@ public class CheckupTicketService {
         checkupTicketRepo.deleteById(id);
     }
 
+    public void deleteTickets(List<String> ids) {
+        checkupTicketRepo.deleteAllById(ids);
+    }
+
 
 }
