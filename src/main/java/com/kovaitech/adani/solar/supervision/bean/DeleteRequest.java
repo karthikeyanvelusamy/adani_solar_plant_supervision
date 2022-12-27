@@ -1,15 +1,14 @@
 package com.kovaitech.adani.solar.supervision.bean;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class DeleteRequest {
 
     private List<String> ids;
