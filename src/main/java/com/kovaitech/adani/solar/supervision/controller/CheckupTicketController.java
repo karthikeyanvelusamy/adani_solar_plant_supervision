@@ -25,13 +25,17 @@ public class CheckupTicketController {
     @Autowired
     private CheckupTicketService service;
 
+    private ObjectMapper mapper = new ObjectMapper();
+
 
     @RequestMapping(value = "/upsert", method = RequestMethod.POST,produces =  MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<String> upsert(@RequestBody CheckupTicket checkupTicket) {
         try{
             checkupTicket.setStatus("Pending");
-            return new ResponseEntity<String>(service.createOrUpdateTicket(checkupTicket),
+            Map<String, Object> response = new HashMap<>();
+            response.put("id",service.createOrUpdateTicket(checkupTicket));
+            return new ResponseEntity<String>(mapper.writeValueAsString(response),
         HttpStatus.OK);
 
         }catch (Exception e) {
@@ -45,10 +49,11 @@ public class CheckupTicketController {
     public ResponseEntity<String> checklistAdd(@PathVariable("id") String id, @RequestBody Map<String, CheckListItem> checkListItemMap) {
         try{
             service.addCheckListItem(checkListItemMap, id);
-            return new ResponseEntity<String>("Success: Updated Successfully",
-                    HttpStatus.OK);
+            Map<String, Object> response = new HashMap<>();
+            response.put("status","Success: Updated Successfully");
+            return new ResponseEntity<String>(mapper.writeValueAsString(response), HttpStatus.OK);
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             return new ResponseEntity<String>( "Error : "+ e.getLocalizedMessage(),
                     HttpStatus.INTERNAL_SERVER_ERROR) ;
         }
@@ -60,7 +65,9 @@ public class CheckupTicketController {
     public ResponseEntity<String> delete(@PathVariable("checkTicketId") String checkupTicketId) {
         try{
             service.deleteTicket(checkupTicketId);
-            return new ResponseEntity<String>("Successfully Deleted",
+            Map<String, Object> response = new HashMap<>();
+            response.put("status", "Successfully Deleted");
+            return new ResponseEntity<String>(mapper.writeValueAsString(response),
                    HttpStatus.OK);
 
         }catch (Exception e) {
@@ -75,8 +82,10 @@ public class CheckupTicketController {
     public ResponseEntity<String> get(@PathVariable("checkupTicketId") String checkupTicketId) {
         try{
 
-            return new ResponseEntity<String>(new ObjectMapper()
-                    .writeValueAsString(service.getCheckupTicket(checkupTicketId)),
+            Map<String, Object> response = new HashMap<>();
+            response.put("data",service.getCheckupTicket(checkupTicketId));
+            return new ResponseEntity<String>(mapper
+                    .writeValueAsString(response),
                    HttpStatus.OK);
 
         }catch (Exception e) {
@@ -93,7 +102,7 @@ public class CheckupTicketController {
             List<CheckupTicket> tickets = service.getAll();
             Map<String, List<CheckupTicket>> res = new HashMap<>();
             res.put("data",tickets);
-            return new ResponseEntity<String>(new ObjectMapper()
+            return new ResponseEntity<String>(mapper
                     .writeValueAsString(res),
                     HttpStatus.OK);
 
