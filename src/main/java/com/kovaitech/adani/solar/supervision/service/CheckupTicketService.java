@@ -65,7 +65,7 @@ public class CheckupTicketService {
                 String.class));
         int index = 1;
         for (String name : names) {
-            checkListItems.add(new CheckListItem(index, name,
+            checkListItems.add(new CheckListItem(index++, name,
                     false,
                     null,
                     null, null,
