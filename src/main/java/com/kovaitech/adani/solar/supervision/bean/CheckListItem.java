@@ -10,6 +10,8 @@ import lombok.*;
 public class CheckListItem {
 
 
+    private int index;
+    private String name;
     private boolean status;
     private String observationAction;
     private String beforePhoto;

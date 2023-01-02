@@ -33,7 +33,6 @@ public class CheckupTicketController {
     @ResponseBody
     public ResponseEntity<String> upsert(@RequestBody CheckupTicket checkupTicket) {
         try{
-            checkupTicket.setStatus("Pending");
             Map<String, Object> response = new HashMap<>();
             response.put("id",service.createOrUpdateTicket(checkupTicket));
             return new ResponseEntity<String>(mapper.writeValueAsString(response),
@@ -47,7 +46,7 @@ public class CheckupTicketController {
 
     @RequestMapping(value = "/checklist-add/{id}", method = RequestMethod.POST,produces =  MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<String> checklistAdd(@PathVariable("id") String id, @RequestBody Map<String, CheckListItem> checkListItemMap) {
+    public ResponseEntity<String> checklistAdd(@PathVariable("id") String id, @RequestBody List<CheckListItem> checkListItemMap) {
         try{
             service.addCheckListItem(checkListItemMap, id);
             Map<String, Object> response = new HashMap<>();

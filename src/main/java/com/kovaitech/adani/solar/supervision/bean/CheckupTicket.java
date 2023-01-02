@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
 import java.util.Map;
 
 @Data
@@ -27,7 +28,7 @@ public class CheckupTicket {
 
 
     private String status;
-    private Map<String, CheckListItem> checkListData;
+    private List<CheckListItem> checkListItems;
 //    private String initiatedBy;
 //    private String finishedBy;
 //    private String startDate;
